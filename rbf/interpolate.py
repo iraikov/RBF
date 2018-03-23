@@ -179,23 +179,29 @@ class RBFInterpolant(object):
   [2] Schimek, M., Smoothing and Regression: Approaches, Computations, 
   and Applications. John Wiley & Sons, 2000.
   '''
-  def __init__(self,y,d,sigma=None,eps=1.0,basis=rbf.basis.phs3,
+  def __init__(self,y,d=None,coeff=None,sigma=None,eps=1.0,basis=rbf.basis.phs3,
                order=1,extrapolate=True,penalty=0.0):
-    y = np.asarray(y) 
-    d = np.asarray(d)
+
+    if (d is None) and (coeff is None):
+      raise ValueError
+    
+    y = np.asarray(y)
+    if d is not None:
+      d = np.asarray(d)
     q,dim = y.shape
     p = rbf.poly.count(order,dim)
     if sigma is None:
       sigma = np.ones(q)
     else:
       sigma = np.asarray(sigma)
-      
-    # form matrix for the LHS
-    A = _coefficient_matrix(y,eps,penalty*sigma,basis,order)
-    # add zeros to the RHS for the polynomial constraints
-    d = np.concatenate((d,np.zeros(p)))
-    # find the radial basis function coefficients
-    coeff = np.linalg.solve(A,d)
+
+    if d is not None:
+      # form matrix for the LHS
+      A = _coefficient_matrix(y,eps,penalty*sigma,basis,order)
+      # add zeros to the RHS for the polynomial constraints
+      d = np.concatenate((d,np.zeros(p)))
+      # find the radial basis function coefficients
+      coeff = np.linalg.solve(A,d)
 
     self._y = y
     self._coeff = coeff
