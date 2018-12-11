@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 if __name__ == '__main__':
+  import numpy as np
   from setuptools import setup
   from setuptools.extension import Extension
   from Cython.Build import cythonize
