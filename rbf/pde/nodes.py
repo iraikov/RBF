@@ -542,7 +542,7 @@ def min_energy_nodes(n, domain, rho=None, build_rtree=False, start=0,
 
 
 def poisson_disc_nodes(radius, domain, ntests=50, rmax_factor=1.5, 
-                       build_rtree=False, **kwargs):
+                       build_rtree=False, start=0, **kwargs):
   '''
   Generates nodes within a two or three dimensional domain. This first
   generate nodes with Poisson disc sampling, and then the nodes are
@@ -612,6 +612,6 @@ def poisson_disc_nodes(radius, domain, ntests=50, rmax_factor=1.5,
     return 1.0/(radius(x)**x.shape[1])
         
   nodes = poisson_discs(radius, domain, ntests=ntests, 
-                        rmax_factor=rmax_factor)
+                        rmax_factor=rmax_factor, start=start)
   out = prepare_nodes(nodes, domain, rho=rho, **kwargs)
   return out

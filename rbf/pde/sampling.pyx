@@ -194,7 +194,7 @@ class _DiscCollection:
         
     
 def poisson_discs(rfunc, domain, seeds=10, ntests=50, 
-                  rmax_factor=1.5):
+                  rmax_factor=1.5, start=0):
     '''
     Generates Poisson disc points within the domain defined by `vert`
     and `smp`. Poisson disc points are tightly packed but are no
@@ -254,7 +254,7 @@ def poisson_discs(rfunc, domain, seeds=10, ntests=50,
     # using Halton sequences, I am ensuring that the output is
     # deterministic without messing with the global RNG seeds.
     idx_rng = HaltonSequence(1, prime_index=0)
-    pnt_rng = HaltonSequence(domain.dim - 1, prime_index=1)
+    pnt_rng = HaltonSequence(domain.dim - 1, prime_index=1, start=start)
     while active:
         # randomly pick a disc index from `active`
         i = active[idx_rng.randint(len(active))[0]]
