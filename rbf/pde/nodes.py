@@ -428,7 +428,7 @@ def prepare_nodes(nodes, domain,
   return nodes, groups, normals
 
   
-def min_energy_nodes(n, domain, rho=None, build_rtree=False, 
+def min_energy_nodes(n, domain, rho=None, build_rtree=False, start=0,
                      **kwargs):
   '''
   Generates nodes within a two or three dimensional. This first
@@ -536,7 +536,7 @@ def min_energy_nodes(n, domain, rho=None, build_rtree=False,
     def rho(x): 
         return np.ones(x.shape[0])
 
-  nodes = rejection_sampling(n, rho, domain)
+  nodes = rejection_sampling(n, rho, domain, start=start)
   out = prepare_nodes(nodes, domain, rho=rho, **kwargs)
   return out                      
 
