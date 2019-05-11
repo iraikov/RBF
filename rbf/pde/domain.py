@@ -6,7 +6,6 @@ import logging
 
 import numpy as np
 
-from rtree.index import Property, Index
 
 from rbf.utils import assert_shape, KDTree
 from rbf.pde import geometry as geo
@@ -109,6 +108,8 @@ class Domain(object):
         smp_min = self.vertices[self.simplices].min(axis=1)
         smp_max = self.vertices[self.simplices].max(axis=1)
         bounds = np.hstack((smp_min, smp_max))
+
+        from rtree.index import Property, Index
         
         p = Property()
         p.dimension = self.dim
