@@ -389,6 +389,8 @@ def prepare_nodes(nodes, domain,
   if boundary_groups is None:
     boundary_groups = {'all': range(len(domain.simplices))}
 
+  # TODO: There should be a test to make sure each simplex belongs to
+  # at most one group.
   if boundary_groups_with_ghosts is None:
     boundary_groups_with_ghosts = []    
 
@@ -454,6 +456,11 @@ def min_energy_nodes(n, domain, rho=None, build_rtree=False, start=0,
     If `True`, then an R-tree will be built to speed up computational
     geometry operations. This should be set to `True` if there are
     many (>10,000) simplices making up the domain.
+
+  start : int, optional
+    The starting index for the Halton sequence, which is used to
+    propose new points. Setting this value is akin to setting the seed
+    for a random number generator.
 
   **kwargs
     Additional arguments passed to `prepare_nodes`    
