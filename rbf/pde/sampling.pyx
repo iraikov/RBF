@@ -5,8 +5,6 @@ import logging
 
 import numpy as np
 
-from rtree.index import Index, Property
-
 from rbf.utils import assert_shape
 from rbf.pde.halton import HaltonSequence
 from rbf.pde.domain import as_domain
@@ -139,6 +137,7 @@ class _DiscCollection:
     disc intersects and discs in the collection.
     '''
     def __init__(self, dim):
+        from rtree.index import Index, Property
         if dim == 2:
             p = Property()
             p.dimension = 2
