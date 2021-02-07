@@ -1,7 +1,3 @@
-'''
-This module provides functions for generating nodes used for solving
-PDEs with the RBF and RBF-FD method.
-'''
 from __future__ import division
 import logging
 
@@ -421,7 +417,10 @@ def prepare_nodes(nodes, domain,
   nodes = nodes[sort_idx]
   normals = normals[sort_idx]
   reverse_sort_idx = np.argsort(sort_idx)
-  groups = {k: reverse_sort_idx[v] for k, v in groups.items()}
+  groups = {}
+  for k, v in groups.items():
+      if len(v) > 0: groups[k] = reverse_sort_idx[v]
+  #groups = {k: reverse_sort_idx[v] for k, v in groups.items()}
 
   logger.debug('checking the quality of the generated nodes ...')
   _check_spacing(nodes, rho)
